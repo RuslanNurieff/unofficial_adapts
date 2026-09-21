@@ -39,4 +39,4 @@ class AdapterSet(nn.Module):
         return str(idx) in self.adapters
 
     def as_dict(self):
-        return {k: v for k, v in self.adapters.items()}
+        return {int(k): v for k, v in self.adapters.items()}

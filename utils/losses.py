@@ -1,10 +1,7 @@
 import torch
 import torch.nn.functional as F
+from anomaly import ch_normalization
 from torch import nn
-
-
-def ch_normalization(x):
-    return F.normalize(x, p=2, dim=1)
 
 
 def calculate_stfpm_loss(teacher_features, student_features):

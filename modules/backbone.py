@@ -20,8 +20,11 @@ class Backbone(nn.Module):
         self.requires_grad_(False)
         self.eval()
 
-    def forward(self, x: Tensor, adapters: dict):
-        first, last = min(adapters), max(adapters)
+    def train(self, mode: bool = True):
+        return super().train(False)
+
+    def forward(self, x: Tensor, adapters: nn.ModuleDict):
+        first, last = min(adapters.as_dict()), max(adapters.as_dict())
         teacher, student = {}, {}
 
         with torch.no_grad():
