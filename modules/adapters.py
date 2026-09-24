@@ -12,9 +12,7 @@ def build_adapter(in_channels: int, ratio: float):
 class Adapter(nn.Module):
     def __init__(self, in_channels: int, ratio: float):
         super().__init__()
-        self.latent_channels = (
-            int(in_channels * ratio) if ratio >= 1 else max(1, int(in_channels * ratio))
-        )
+        self.latent_channels = max(1, int(in_channels * ratio))
 
         self.conv1 = nn.Conv2d(in_channels, self.latent_channels, 1, bias=True)
         self.bn1 = nn.BatchNorm2d(self.latent_channels)

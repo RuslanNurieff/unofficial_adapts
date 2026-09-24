@@ -6,9 +6,7 @@ from torchvision import models
 class Backbone(nn.Module):
     def __init__(self, max_block: int = 3):
         super().__init__()
-
-        self.OUTPUT_CHANNELS = {1: 256, 2: 512, 3: 1024, 4: 2048}
-
+        self.max_block = max_block
         net = models.wide_resnet50_2(
             weights=models.Wide_ResNet50_2_Weights.IMAGENET1K_V1
         )  # following AdapTS paper, but in future could be changed to dynamic archs
