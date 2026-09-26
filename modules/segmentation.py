@@ -2,9 +2,8 @@ from collections.abc import Mapping
 
 import torch
 import torch.nn as nn  # noqa
-import torch.nn.functional as F
 
-from utils.anomaly import feature_differences
+from utils.anomaly import feature_differences, resize_to
 
 
 class SegmentationModule(nn.Module):
@@ -25,15 +24,12 @@ class SegmentationModule(nn.Module):
     def forward(
         self, teacher: Mapping[int, torch.Tensor], student: Mapping[int, torch.Tensor]
     ):
-        interpolation_size = tuple(self.infer_size(teacher))
+        interpolation_size = self.infer_size(teacher)
 
-        diffs = []
-        for block in self.channels:
-            d = feature_differences(teacher[block], student[block])
-            if tuple(d.shape[-2:]) != interpolation_size:
-                d = F.interpolate(
-                    d, interpolation_size, mode="bilinear", align_corners=False
-                )
-            diffs.append(d)
+        diffs = [
+            resize_to(feature_differences(teacher[block], student[block]), interpolation_size)
+            for block in self.channels
+        ]
 
-        return torch.sigmoid(self.conv_layer(torch.cat(diffs, dim=1)))
+        # logits, sigmoid is applied in the loss (numerically stable focal term)
+        return self.conv_layer(torch.cat(diffs, dim=1))

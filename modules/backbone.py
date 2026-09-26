@@ -2,6 +2,9 @@ import torch
 from torch import Tensor, nn
 from torchvision import models
 
+IMAGENET_MEAN = (0.485, 0.456, 0.406)
+IMAGENET_STD = (0.229, 0.224, 0.225)
+
 
 class Backbone(nn.Module):
     def __init__(self, max_block: int = 3):
@@ -10,6 +13,11 @@ class Backbone(nn.Module):
         net = models.wide_resnet50_2(
             weights=models.Wide_ResNet50_2_Weights.IMAGENET1K_V1
         )  # following AdapTS paper, but in future could be changed to dynamic archs
+
+        # inputs are RGB in [0, 1] (both TrainGenerator and moviad datasets),
+        # normalize here so every caller hits the backbone with ImageNet stats
+        self.register_buffer("mean", torch.tensor(IMAGENET_MEAN).view(1, 3, 1, 1))
+        self.register_buffer("std", torch.tensor(IMAGENET_STD).view(1, 3, 1, 1))
 
         self.stem = nn.Sequential(net.conv1, net.bn1, net.relu, net.maxpool)
         self.blocks = nn.ModuleList(
@@ -26,7 +34,7 @@ class Backbone(nn.Module):
         teacher, student = {}, {}
 
         with torch.no_grad():
-            h = self.stem(x)
+            h = self.stem((x - self.mean) / self.std)
             for i in range(1, last + 1):
                 h = self.blocks[i - 1](h)
                 if i in adapters:

@@ -1,5 +1,0 @@
-# from
-
-
-class Evaluator:
-    pass
