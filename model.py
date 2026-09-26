@@ -27,6 +27,13 @@ class AdapTS(nn.Module):
 
     def forward(self, x: torch.Tensor):
         teacher, student = self.backbone(x, self.adapters)
-        seg_out = self.seg(teacher, student)
+        if not self.training:
+            # segmentation head is only a training signal, skip it at eval time
+            return (teacher, student), None
 
+        seg_out = self.seg(self.detach_dict(teacher), self.detach_dict(student))
         return (teacher, student), seg_out
+
+    @staticmethod
+    def detach_dict(d: dict[int, torch.Tensor]) -> dict[int, torch.Tensor]:
+        return {k: v.detach() for k, v in d.items()}

@@ -1,7 +1,7 @@
 from collections.abc import Mapping
 
 import torch
-import torch.nn as nn
+import torch.nn as nn  # noqa
 import torch.nn.functional as F
 
 from utils.anomaly import feature_differences

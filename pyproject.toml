@@ -6,17 +6,44 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.11.2",
+    "moviad",
     "numpy>=2.5.3",
     "opencv-python>=5.0.0.93",
+]
+
+# pick exactly one torch build:
+#   uv sync --extra cpu     (local, no CUDA libraries)
+#   uv sync --extra cu126   (GPU machine)
+[project.optional-dependencies]
+cpu = [
     "torch>=2.14.0",
     "torchvision>=0.29.0",
 ]
+cu126 = [
+    "torch>=2.14.0",
+    "torchvision>=0.29.0",
+]
+
+[tool.uv]
+conflicts = [[{ extra = "cpu" }, { extra = "cu126" }]]
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
 [tool.uv.sources]
-torch = [{ index = "pytorch-cpu" }]
-torchvision = [{ index = "pytorch-cpu" }]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+torchvision = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu126", extra = "cu126" },
+]
+moviad = { git = "https://github.com/AMCO-UniPD/moviad.git", rev = "continual" }
