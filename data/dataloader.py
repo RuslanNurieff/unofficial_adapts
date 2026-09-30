@@ -5,6 +5,7 @@ from collections.abc import Iterable
 import cv2
 import numpy as np
 import torch
+import torchvision.transforms.functional as TF
 from cv2.typing import MatLike
 from torch.utils.data import Dataset
 
@@ -102,9 +103,11 @@ class TrainGenerator(Dataset):
 
     def _read_rgb(self, path: str | os.PathLike):
         img = cv2.cvtColor(cv2.imread(str(path)), cv2.COLOR_BGR2RGB)
-        # cv2 dsize is (width, height)
-        img = cv2.resize(img, dsize=(self.resize_shape[1], self.resize_shape[0]))
-        return img.astype(np.float32) / 255.0
+        img = img.astype(np.float32) / 255.0
+        # resize like the test path (ToTensor + Resize(antialias=True)), then back to HWC for cv2
+        t = torch.from_numpy(img).permute(2, 0, 1)
+        t = TF.resize(t, list(self.resize_shape), antialias=True)
+        return t.permute(1, 2, 0).contiguous().numpy()
 
     def _augment_source(self, img: np.ndarray):
         picks = torch.randperm(len(_AUGMENTERS))[:3].tolist()

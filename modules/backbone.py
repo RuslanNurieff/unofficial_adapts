@@ -14,8 +14,6 @@ class Backbone(nn.Module):
             weights=models.Wide_ResNet50_2_Weights.IMAGENET1K_V1
         )  # following AdapTS paper, but in future could be changed to dynamic archs
 
-        # inputs are RGB in [0, 1] (both TrainGenerator and moviad datasets),
-        # normalize here so every caller hits the backbone with ImageNet stats
         self.register_buffer("mean", torch.tensor(IMAGENET_MEAN).view(1, 3, 1, 1))
         self.register_buffer("std", torch.tensor(IMAGENET_STD).view(1, 3, 1, 1))
 

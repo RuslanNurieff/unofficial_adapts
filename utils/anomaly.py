@@ -29,8 +29,6 @@ def anomaly_map(
     student: Mapping[int, Tensor],
     size: Sequence[int],
 ):
-    # inference map (paper Fig. 2c): per-block diff summed over channels,
-    # upsampled to the input size and summed over blocks
     amap = 0
     for block in teacher:
         d = feature_differences(teacher[block], student[block])
@@ -44,7 +42,6 @@ def gaussian_blur(x: Tensor, sigma: float = 4.0):
     kernel = torch.exp(-(coords**2) / (2 * sigma**2))
     kernel = kernel / kernel.sum()
 
-    # separable blur, reflect padding keeps borders from darkening
     x = F.pad(x, (radius, radius, 0, 0), mode="reflect")
     x = F.conv2d(x, kernel.view(1, 1, 1, -1))
     x = F.pad(x, (0, 0, radius, radius), mode="reflect")

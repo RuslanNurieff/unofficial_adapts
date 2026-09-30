@@ -20,7 +20,9 @@ class Adapter(nn.Module):
         self.conv2 = nn.Conv2d(self.latent_channels, in_channels, 1, bias=True)
 
     def forward(self, x):
-        return x + self.conv2(self.act(self.bn1(self.conv1(x))))
+        # no skip connection (paper Fig. 2a): with x + f(x) the STFPM optimum is
+        # f = 0, i.e. student == teacher everywhere, and the anomaly signal collapses
+        return self.conv2(self.act(self.bn1(self.conv1(x))))
 
 
 class AdapterSet(nn.Module):

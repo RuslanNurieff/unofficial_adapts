@@ -24,12 +24,15 @@ class SegmentationModule(nn.Module):
     def forward(
         self, teacher: Mapping[int, torch.Tensor], student: Mapping[int, torch.Tensor]
     ):
-        interpolation_size = self.infer_size(teacher)
+        self.interpolation_size = self.infer_size(teacher)
 
         diffs = [
-            resize_to(feature_differences(teacher[block], student[block]), interpolation_size)
+            resize_to(
+                feature_differences(teacher[block], student[block]),
+                self.interpolation_size,
+            )
             for block in self.channels
         ]
 
-        # logits, sigmoid is applied in the loss (numerically stable focal term)
+        # sigmoid will be applied duting traininig
         return self.conv_layer(torch.cat(diffs, dim=1))

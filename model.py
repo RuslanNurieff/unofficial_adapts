@@ -1,18 +1,21 @@
 import torch
 import torch.nn as nn  # noqa
+import torch.nn.functional as F
 
 from modules.adapters import AdapterSet
 from modules.backbone import Backbone
 from modules.segmentation import SegmentationModule
-from utils.anomaly import anomaly_map
 
 
 class AdapTS(nn.Module):
-    OUTPUT_CHANNELS = {1: 256, 2: 512, 3: 1024, 4: 2048}
+    OUTPUT_CHANNELS = {1: 256, 2: 512, 3: 1024, 4: 2048}  # noqa
 
     def __init__(self, adapter_layers: list[int], adapter_ratio: float = 1):
         super().__init__()
-        self.config = {"adapter_layers": list(adapter_layers), "adapter_ratio": adapter_ratio}
+        self.config = {
+            "adapter_layers": list(adapter_layers),
+            "adapter_ratio": adapter_ratio,
+        }
         unknown = set(adapter_layers) - self.OUTPUT_CHANNELS.keys()
         if unknown:
             raise ValueError(f"unknown adapter layers {sorted(unknown)}")
@@ -28,7 +31,6 @@ class AdapTS(nn.Module):
         self.seg = SegmentationModule(self.adapted_layers)
 
     def trainable_parameters(self):
-        # backbone is frozen in Backbone.__init__, only adapters + seg head train
         return [*self.adapters.parameters(), *self.seg.parameters()]
 
     def save(self, path):
@@ -53,9 +55,37 @@ class AdapTS(nn.Module):
     def forward(self, x: torch.Tensor):
         teacher, student = self.backbone(x, self.adapters)
         if not self.training:
-            # segmentation head is discarded at inference (paper Fig. 2c)
-            return (teacher, student), anomaly_map(teacher, student, x.shape[-2:])
+            return self.post_process(
+                teacher, student, output_shape=self.seg.interpolation_size
+            )
 
-        # no detach: the seg loss has to reach the adapters to guide separability
         seg_out = self.seg(teacher, student)
         return (teacher, student), seg_out
+
+    def post_process(self, t_feat, s_feat, output_shape=(256, 256)) -> torch.Tensor:
+        """
+        This method actually produces the anomaly maps for evalution purposes
+
+        Args:
+            - t_feat: teacher features maps
+            - s_feat: student features maps
+
+        Returns:
+            - anomaly maps
+
+        """
+
+        device = "cuda"
+        score_maps = torch.tensor([1.0], device=device)
+        for j in t_feat:
+            t_feat[j] = F.normalize(t_feat[j], dim=1)
+            s_feat[j] = F.normalize(s_feat[j], dim=1)
+            sm = torch.sum((t_feat[j] - s_feat[j]) ** 2, 1, keepdim=True)
+            sm = F.interpolate(
+                sm, size=output_shape, mode="bilinear", align_corners=False
+            )
+            # aggregate score map by element-wise product
+            score_maps = score_maps * sm
+
+        anomaly_scores = torch.max(score_maps.view(score_maps.size(0), -1), dim=1)[0]
+        return score_maps, anomaly_scores
