@@ -8,33 +8,37 @@ from modules.segmentation import SegmentationModule
 
 
 class AdapTS(nn.Module):
-    OUTPUT_CHANNELS = {1: 256, 2: 512, 3: 1024, 4: 2048}  # noqa
-
-    def __init__(self, adapter_layers: list[int], adapter_ratio: float = 1):
+    def __init__(
+        self,
+        adapter_layers: list[int],
+        adapter_ratio: float = 1,
+        backbone: str = "wide_resnet50_2",
+    ):
         super().__init__()
         self.config = {
             "adapter_layers": list(adapter_layers),
             "adapter_ratio": adapter_ratio,
+            "backbone": backbone,
         }
-        unknown = set(adapter_layers) - self.OUTPUT_CHANNELS.keys()
+        self.backbone = Backbone(backbone, max_block=max(adapter_layers))
+        unknown = set(adapter_layers) - self.backbone.channels.keys()
         if unknown:
             raise ValueError(f"unknown adapter layers {sorted(unknown)}")
         self.adapted_layers = {
-            k: v for k, v in self.OUTPUT_CHANNELS.items() if k in adapter_layers
+            k: v for k, v in self.backbone.channels.items() if k in adapter_layers
         }
 
         self.adapters = AdapterSet(
             self.adapted_layers,
             adapter_ratio,
         )
-        self.backbone = Backbone(max_block=max(self.adapted_layers))
         self.seg = SegmentationModule(self.adapted_layers)
 
     def trainable_parameters(self):
         return [*self.adapters.parameters(), *self.seg.parameters()]
 
     def save(self, path):
-        # the frozen backbone comes from torchvision weights, no need to store it
+        # the frozen backbone comes from pretrained weights, no need to store it
         torch.save(
             {
                 "config": self.config,
@@ -55,9 +59,7 @@ class AdapTS(nn.Module):
     def forward(self, x: torch.Tensor):
         teacher, student = self.backbone(x, self.adapters)
         if not self.training:
-            return self.post_process(
-                teacher, student, output_shape=self.seg.interpolation_size
-            )
+            return self.post_process(teacher, student)
 
         seg_out = self.seg(teacher, student)
         return (teacher, student), seg_out
@@ -75,7 +77,7 @@ class AdapTS(nn.Module):
 
         """
 
-        device = "cuda"
+        device = "cuda" if torch.cuda.is_available() else "cpu"
         score_maps = torch.tensor([1.0], device=device)
         for j in t_feat:
             t_feat[j] = F.normalize(t_feat[j], dim=1)

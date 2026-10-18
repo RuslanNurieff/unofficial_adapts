@@ -11,6 +11,7 @@ def train(
     train_loader,
     adapter_layers=(1, 2, 3),
     adapter_ratio=1.0,
+    backbone="wide_resnet50_2",
     lr=1e-3,
     weight_decay=1e-4,
     epochs=100,
@@ -25,7 +26,7 @@ def train(
     if device.type == "cuda":
         torch.backends.cudnn.benchmark = True  # fixed input size -> faster convs
 
-    model = AdapTS(list(adapter_layers), adapter_ratio).to(device)
+    model = AdapTS(list(adapter_layers), adapter_ratio, backbone).to(device)
     optimizer = torch.optim.AdamW(
         model.trainable_parameters(), lr=lr, weight_decay=weight_decay
     )

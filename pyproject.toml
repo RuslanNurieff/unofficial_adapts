@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "hiera-transformer>=0.1.4",
     "matplotlib>=3.11.2",
     "moviad",
     "numpy>=2.5.3",

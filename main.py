@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader
 
 from data.dataloader import TrainGenerator
 from evaluate import build_test_loader, evaluate
+from modules.backbone import BACKBONES
 from train import train
 
 DATA_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data_samples")
@@ -15,10 +16,21 @@ DATA_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data_sampl
 def parse_args():
     parser = argparse.ArgumentParser(description="Train AdapTS on one MVTec category")
     parser.add_argument("--data-root", default=DATA_ROOT)
-    parser.add_argument("--anomaly-source", default=None,
-                        help="DTD-style folder, defaults to <data-root>/anomaly_sources/images")
+    parser.add_argument(
+        "--anomaly-source",
+        default=None,
+        help="DTD-style folder, defaults to <data-root>/anomaly_sources/images",
+    )
     parser.add_argument("--category", default="bottle")
-    parser.add_argument("--img-size", type=int, default=256)
+    parser.add_argument(
+        "--img-size",
+        type=int,
+        default=256,
+        help="Hiera backbones need a multiple of 32",
+    )
+    parser.add_argument(
+        "--backbone", default="wide_resnet50_2", choices=list(BACKBONES)
+    )
     parser.add_argument("--layers", type=int, nargs="+", default=[1, 2, 3])
     parser.add_argument("--adapter-ratio", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=100)
@@ -42,7 +54,9 @@ def main():
         args.data_root, "anomaly_sources/images"
     )
     train_set = TrainGenerator(
-        os.path.join(args.data_root, args.category, "train/good"), anomaly_source, img_size
+        os.path.join(args.data_root, args.category, "train/good"),
+        anomaly_source,
+        img_size,
     )
     train_loader = DataLoader(
         train_set,
@@ -65,6 +79,7 @@ def main():
         train_loader,
         adapter_layers=args.layers,
         adapter_ratio=args.adapter_ratio,
+        backbone=args.backbone,
         lr=args.lr,
         epochs=args.epochs,
         eval_fn=eval_fn,
