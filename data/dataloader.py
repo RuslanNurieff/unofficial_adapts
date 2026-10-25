@@ -139,7 +139,9 @@ class TrainGenerator(Dataset):
 
         beta = _rand() * 0.8
         augmented_image = (
-            image * (1 - msk) + (1 - beta) * anomaly_source_img * msk + beta * image * msk
+            image * (1 - msk)
+            + (1 - beta) * anomaly_source_img * msk
+            + beta * image * msk
         )
 
         has_anomaly = 1.0 if msk.sum() > 0 else 0.0
@@ -150,21 +152,21 @@ class TrainGenerator(Dataset):
         )
 
     def __getitem__(self, idx):
-        rand_idx = torch.randint(0, len(self.anomaly_source_paths), (1,)).item()
+        # rand_idx = torch.randint(0, len(self.anomaly_source_paths), (1,)).item()
         img = self._read_rgb(self.image_paths[idx])
-        anomaly_source_path = self.anomaly_source_paths[rand_idx]
+        # anomaly_source_path = self.anomaly_source_paths[rand_idx]
 
-        perlin_img, mask, label = self._add_perlin(img, anomaly_source_path)
+        # _, _, label = self._add_perlin(img, anomaly_source_path)
 
         img = torch.from_numpy(img).permute(2, 0, 1)
-        perlin_img = torch.from_numpy(perlin_img).permute(2, 0, 1)
-        mask = torch.from_numpy(mask).permute(2, 0, 1)
+        # perlin_img = torch.from_numpy(perlin_img).permute(2, 0, 1)
+        # mask = torch.from_numpy(mask).permute(2, 0, 1)
 
         sample = {
             "image": img,
-            "anomaly_image": perlin_img,
-            "anomaly_mask": mask,
-            "has_anomaly": label,
+            # "anomaly_image": perlin_img,
+            # "anomaly_mask": mask,
+            # "has_anomaly": label,
         }
 
         return sample

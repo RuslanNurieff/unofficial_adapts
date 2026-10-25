@@ -21,25 +21,26 @@ def train(
     out_dir="checkpoints",
 ):
     """eval_fn(model, device) -> dict of metrics; the best eval_key checkpoint is kept."""
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = "cpu"  # torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
-    if device.type == "cuda":
-        torch.backends.cudnn.benchmark = True  # fixed input size -> faster convs
+    # if device.type == "cuda":
+    #     torch.backends.cudnn.benchmark = True  # fixed input size -> faster convs
 
     model = AdapTS(list(adapter_layers), adapter_ratio, backbone).to(device)
     optimizer = torch.optim.AdamW(
         model.trainable_parameters(), lr=lr, weight_decay=weight_decay
     )
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
-    seg_loss_fn = SegmentationLoss()
+    # seg_loss_fn = SegmentationLoss()
 
     # bf16 needs no grad scaler; fall back to full precision elsewhere
-    use_amp = device.type == "cuda" and torch.cuda.is_bf16_supported()
-    autocast = (
-        (lambda: torch.autocast("cuda", dtype=torch.bfloat16))
-        if use_amp
-        else contextlib.nullcontext
-    )
+    # use_amp = device.type == "cuda" and torch.cuda.is_bf16_supported()
+    autocast = contextlib.nullcontext
+    # autocast = (
+    #     (lambda: torch.autocast("cuda", dtype=torch.bfloat16))
+    #     if use_amp
+    #     else contextlib.nullcontext
+    # )
 
     # optional safety check: fails loudly if the backbone ever becomes trainable
     assert not any(p.requires_grad for p in model.backbone.parameters())
@@ -49,16 +50,19 @@ def train(
 
     for epoch in range(epochs):
         model.train()  # adapters + seg go to train mode, backbone stays in eval
-        totals = {"loss": 0.0, "stfpm": 0.0, "seg": 0.0}
+        totals = {"loss": 0.0, "stfpm": 0.0}
         for sample in train_loader:
-            anomaly_images = sample["anomaly_image"].to(device, non_blocking=True)
-            masks = sample["anomaly_mask"].to(device, non_blocking=True)
+            image = sample["image"].to(device, non_blocking=True)
+            # anomaly_images = sample["anomaly_image"].to(device, non_blocking=True)
+            # masks = sample["anomaly_mask"].to(device, non_blocking=True)
 
             with autocast():
-                (teacher, student), seg_out = model(anomaly_images)
+                teacher, student = model(
+                    image  # anomaly_images
+                )  # (teacher, student), seg_out = model(anomaly_images)
                 stfpm_loss = calculate_stfpm_loss(teacher, student)
-                seg_loss = seg_loss_fn(seg_out.float(), masks)
-                loss = stfpm_loss + seg_loss
+                # seg_loss = seg_loss_fn(seg_out.float(), masks)
+                loss = stfpm_loss  # + seg_loss
 
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
@@ -66,13 +70,13 @@ def train(
 
             totals["loss"] += loss.item()
             totals["stfpm"] += stfpm_loss.item()
-            totals["seg"] += seg_loss.item()
+            # totals["seg"] += seg_loss.item()
         scheduler.step()
 
         n = len(train_loader)
         print(
             f"Epoch {epoch}: loss {totals['loss'] / n:.4f}, "
-            f"stfpm {totals['stfpm'] / n:.4f}, seg {totals['seg'] / n:.4f}, "
+            f"stfpm {totals['stfpm'] / n:.4f}, "
             f"lr {scheduler.get_last_lr()[0]:.2e}"
         )
 
