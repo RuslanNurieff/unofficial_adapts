@@ -49,14 +49,12 @@ def train(
 
     for epoch in range(epochs):
         model.train()  # adapters go to train mode, backbone stays in eval
-        totals = {"loss": 0.0, "stfpm": 0.0}
+        totals = {"loss": 0.0}
         for sample in train_loader:
-            image = sample["image"].to(device, non_blocking=True)
+            image = sample.to(device, non_blocking=True)
 
             with autocast():
-                teacher, student = model(
-                    image  # anomaly_images
-                )
+                teacher, student = model(image)
                 loss = calculate_stfpm_loss(teacher, student)
 
             optimizer.zero_grad(set_to_none=True)

@@ -45,7 +45,7 @@ def main():
 
     img_size = (args.img_size, args.img_size)
     train_loader = build_train_loader(
-        os.path.join(args.data_root, args.category, "train/good"),
+        args.data_root,
         args.category,
         img_size,
     )
@@ -55,7 +55,7 @@ def main():
         test_loader = build_test_loader(
             args.data_root, args.category, img_size, args.bs, args.workers
         )
-        eval_fn = lambda model, device: evaluate(model, test_loader, device)  # noqa: E731
+        eval_fn = lambda model, device: evaluate(model, test_loader, device)
 
     train(
         train_loader,
