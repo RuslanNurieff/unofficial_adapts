@@ -4,7 +4,7 @@ import os
 import torch
 
 from model import AdapTS
-from utils.losses import calculate_stfpm_loss
+from utils.losses import stfpm_layer_losses
 
 
 def train(
@@ -19,8 +19,11 @@ def train(
     eval_every=10,
     eval_key="img_roc_auc",
     out_dir="checkpoints",
+    log_fn=None,
 ):
-    """eval_fn(model, device) -> dict of metrics; the best eval_key checkpoint is kept."""
+    """eval_fn(model, device) -> dict of metrics; the best eval_key checkpoint is kept.
+    log_fn(dict) receives the epoch's train losses, lr and eval metrics (e.g. wandb.log).
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
     if device.type == "cuda":
@@ -49,26 +52,30 @@ def train(
 
     for epoch in range(epochs):
         model.train()  # adapters go to train mode, backbone stays in eval
-        totals = {"loss": 0.0}
+        totals = {"loss": 0.0, **{f"loss_layer{k}": 0.0 for k in model.adapted_layers}}
         for sample in train_loader:
             image = sample.to(device, non_blocking=True)
 
             with autocast():
                 teacher, student = model(image)
-                loss = calculate_stfpm_loss(teacher, student)
+                layer_losses = stfpm_layer_losses(teacher, student)
+                loss = sum(layer_losses.values())
 
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             optimizer.step()
 
             totals["loss"] += loss.item()
+            for k, v in layer_losses.items():
+                totals[f"loss_layer{k}"] += v.item()
         scheduler.step()
 
         n = len(train_loader)
-        print(
-            f"Epoch {epoch}: loss {totals['loss'] / n:.4f}, "
-            f"lr {scheduler.get_last_lr()[0]:.2e}"
-        )
+        last_lr = scheduler.get_last_lr()[0]
+        print(f"Epoch {epoch}: loss {totals['loss'] / n:.4f}, lr {last_lr:.2e}")
+        # epoch counts completed epochs, so evals land on multiples of eval_every
+        log = {"epoch": epoch + 1, "train/lr": last_lr}
+        log.update({f"train/{k}": v / n for k, v in totals.items()})
 
         model.save(os.path.join(out_dir, "last.pt"))
         is_last = epoch == epochs - 1
@@ -78,5 +85,10 @@ def train(
             if report[eval_key] > best:
                 best = report[eval_key]
                 model.save(os.path.join(out_dir, "best.pt"))
+            log.update({f"eval/{k}": v for k, v in report.items()})
+            log[f"eval/best_{eval_key}"] = best
+
+        if log_fn is not None:
+            log_fn(log)
 
     return model

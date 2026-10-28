@@ -16,3 +16,4 @@ wheels/
 data_samples/
 # Training outputs
 checkpoints/
+wandb/

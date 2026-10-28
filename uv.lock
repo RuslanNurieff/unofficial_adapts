@@ -1,24 +1,24 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.13"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'emscripten' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform == 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform == 'emscripten' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
-    "python_full_version < '3.14' and sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'win32' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform == 'emscripten' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version >= '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform == 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform == 'emscripten' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
+    "python_full_version < '3.14' and sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version < '3.14' and sys_platform == 'win32' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version < '3.14' and sys_platform == 'emscripten' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
     "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126'",
@@ -39,7 +39,7 @@ dependencies = [
     { name = "psutil" },
     { name = "pyyaml" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
 ]
@@ -58,6 +58,7 @@ dependencies = [
     { name = "moviad" },
     { name = "numpy" },
     { name = "opencv-python" },
+    { name = "wandb" },
 ]
 
 [package.optional-dependencies]
@@ -83,6 +84,7 @@ requires-dist = [
     { name = "torch", marker = "extra == 'cu126'", specifier = ">=2.14.0", index = "https://download.pytorch.org/whl/cu126", conflict = { package = "adapts", extra = "cu126" } },
     { name = "torchvision", marker = "extra == 'cpu'", specifier = ">=0.29.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "adapts", extra = "cpu" } },
     { name = "torchvision", marker = "extra == 'cu126'", specifier = ">=0.29.0", index = "https://download.pytorch.org/whl/cu126", conflict = { package = "adapts", extra = "cu126" } },
+    { name = "wandb", specifier = ">=0.30.0" },
 ]
 provides-extras = ["cpu", "cu126"]
 
@@ -110,7 +112,7 @@ version = "4.15.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
-    { name = "typing-extensions", marker = "python_full_version < '3.15' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.15'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a9/d2/f4d173e22df740bc37b1db102b386ba719b66e95b0f0d751f556b387e6d2/anyio-4.15.1.tar.gz", hash = "sha256:9f28306018cbd6d329e64a36d58256edff76dd996fe423bc957326e578b82a94", size = 276966, upload-time = "2026-09-05T10:42:39.44Z" }
 wheels = [
@@ -125,7 +127,7 @@ dependencies = [
     { name = "accelerate" },
     { name = "huggingface-hub" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
 ]
@@ -148,7 +150,7 @@ name = "cffi"
 version = "2.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "pycparser", marker = "implementation_name != 'PyPy'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz", hash = "sha256:dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be", size = 530807, upload-time = "2026-08-03T21:21:18.939Z" }
 wheels = [
@@ -436,7 +438,7 @@ resolution-markers = [
     "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 dependencies = [
-    { name = "cuda-pathfinder", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "cuda-pathfinder", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f3/53/5feb797383018479eb678e6415294b6bc850fce0912994ca8b37cee432a6/cuda_bindings-12.9.9-cp313-cp313-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:fc8a97efcb14e48664fc15479b621002ba4e0a6fba34e617a70b07f4bd638390", size = 6927391, upload-time = "2026-09-23T03:20:53.352Z" },
@@ -542,43 +544,43 @@ wheels = [
 
 [package.optional-dependencies]
 cublas = [
-    { name = "nvidia-cublas", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-cuda-nvrtc", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cublas", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cuda-nvrtc", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cudart = [
-    { name = "nvidia-cuda-runtime", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cuda-runtime", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cufft = [
-    { name = "nvidia-cufft", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-nvjitlink", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cufft", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cufile = [
-    { name = "nvidia-cufile", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cufile", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cupti = [
-    { name = "nvidia-cuda-cupti", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cuda-cupti", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 curand = [
-    { name = "nvidia-curand", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-curand", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cusolver = [
-    { name = "nvidia-cublas", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-cusolver", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-cusparse", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-nvjitlink", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cublas", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cusolver", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cusparse", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 cusparse = [
-    { name = "nvidia-cusparse", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-nvjitlink", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cusparse", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 nvjitlink = [
-    { name = "nvidia-nvjitlink", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 nvrtc = [
-    { name = "nvidia-cuda-nvrtc", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cuda-nvrtc", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 nvtx = [
-    { name = "nvidia-nvtx", marker = "(platform_machine != 'aarch64' and platform_machine != 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'aarch64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvtx", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (platform_machine == 'x86_64' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 
 [[package]]
@@ -758,7 +760,7 @@ dependencies = [
     { name = "packaging" },
     { name = "timm" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "tqdm" },
@@ -804,7 +806,7 @@ dependencies = [
     { name = "click" },
     { name = "filelock" },
     { name = "fsspec" },
-    { name = "hf-xet", marker = "platform_machine == 'AMD64' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'arm64' or platform_machine == 'x86_64' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "hf-xet", marker = "platform_machine == 'AMD64' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'arm64' or platform_machine == 'x86_64'" },
     { name = "httpx" },
     { name = "packaging" },
     { name = "pyyaml" },
@@ -1034,8 +1036,8 @@ name = "loguru"
 version = "0.7.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "win32-setctime", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "win32-setctime", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/3a/05/a1dae3dffd1116099471c643b8924f5aa6524411dc6c63fdae648c4f1aca/loguru-0.7.3.tar.gz", hash = "sha256:19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6", size = 63559, upload-time = "2024-12-06T11:20:56.608Z" }
 wheels = [
@@ -1191,13 +1193,13 @@ dependencies = [
     { name = "loguru" },
     { name = "onnx" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "torchaudio" },
     { name = "torchinfo" },
     { name = "torchvision", version = "0.29.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
 ]
@@ -1266,11 +1268,11 @@ dependencies = [
     { name = "thop" },
     { name = "timm" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "torchvision", version = "0.29.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "tqdm" },
@@ -1569,7 +1571,7 @@ name = "nvidia-cudnn-cu12"
 version = "9.10.2.21"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cublas-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fa/41/e79269ce215c857c935fd86bcfe91a451a584dfc27f1e068f568b9ad1ab7/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:c9132cc3f8958447b4910a1720036d9eff5928cc3179b0a51fb6d167c6cc87d8", size = 705026878, upload-time = "2025-06-06T21:52:51.348Z" },
@@ -1608,7 +1610,7 @@ name = "nvidia-cufft-cu12"
 version = "11.3.0.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/1f/37/c50d2b2f2c07e146776389e3080f4faf70bcc4fa6e19d65bb54ca174ebc3/nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d16079550df460376455cba121db6564089176d9bac9e4f360493ca4741b22a6", size = 200164144, upload-time = "2024-11-20T17:40:58.288Z" },
@@ -1678,9 +1680,9 @@ name = "nvidia-cusolver-cu12"
 version = "11.7.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-cusparse-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cublas-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-cusparse-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/93/17/dbe1aa865e4fdc7b6d4d0dd308fdd5aaab60f939abfc0ea1954eac4fb113/nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:0ce237ef60acde1efc457335a2ddadfd7610b892d94efee7b776c64bb1cac9e0", size = 157833628, upload-time = "2024-10-01T17:05:05.591Z" },
@@ -1708,7 +1710,7 @@ name = "nvidia-cusparse-cu12"
 version = "12.5.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'emscripten' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform == 'win32' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/eb/eb/6681efd0aa7df96b4f8067b3ce7246833dd36830bb4cec8896182773db7d/nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d25b62fb18751758fe3c93a4a08eff08effedfe4edf1c6bb5afd0890fe88f887", size = 216451147, upload-time = "2024-11-20T17:44:18.055Z" },
@@ -1831,10 +1833,10 @@ name = "nvitop"
 version = "1.7.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "nvidia-ml-py" },
     { name = "psutil" },
-    { name = "windows-curses", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "windows-curses", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ee/86/81c262e9c4adee00dd4eb968c8a7c4b2395a9f466299b87f5f422e503609/nvitop-1.7.1.tar.gz", hash = "sha256:3803112a1d4a7e01989ae5bf5a5e42f0366bf791d68ad8e3b1859d7ed747140c", size = 222479, upload-time = "2026-07-10T11:26:33.894Z" }
 wheels = [
@@ -2013,7 +2015,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "python-dateutil" },
-    { name = "tzdata", marker = "sys_platform == 'emscripten' or sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "tzdata", marker = "sys_platform == 'emscripten' or sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e2/17/d7b106e05bfa642e8694451e7d3d759c6a241c5386a5d962e4f66c047e06/pandas-3.0.6.tar.gz", hash = "sha256:66b07ef7315a31bfe1089cd3d71a7de781c9dca986762d0b4fe7c0ef17465d10", size = 4667686, upload-time = "2026-09-17T23:23:18.345Z" }
 wheels = [
@@ -2308,7 +2310,7 @@ name = "pytest"
 version = "9.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "iniconfig" },
     { name = "packaging" },
     { name = "pluggy" },
@@ -2782,7 +2784,7 @@ version = "0.1.1.post2209072238"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
 ]
@@ -2820,11 +2822,11 @@ dependencies = [
     { name = "pyyaml" },
     { name = "safetensors" },
     { name = "torch", version = "2.14.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torch", version = "2.14.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "torchvision", version = "0.29.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "torchvision", version = "0.29.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-6-adapts-cpu') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "torchvision", version = "0.29.0+cu126", source = { registry = "https://download.pytorch.org/whl/cu126" }, marker = "extra == 'extra-6-adapts-cu126'" },
 ]
@@ -2900,18 +2902,18 @@ resolution-markers = [
 dependencies = [
     { name = "cuda-bindings", version = "13.4.3", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "cuda-toolkit", version = "13.0.3.0", source = { registry = "https://pypi.org/simple" }, extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvjitlink", "nvrtc", "nvtx"], marker = "(sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "filelock", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "fsspec", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "jinja2", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "networkx", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "filelock", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "fsspec", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "jinja2", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "networkx", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "nvidia-cudnn-cu13", marker = "(sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "nvidia-cusparselt-cu13", marker = "(sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "nvidia-nccl-cu13", marker = "(sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "nvidia-nvshmem-cu13", marker = "(sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "setuptools", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "sympy", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "setuptools", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "sympy", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "triton", marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
-    { name = "typing-extensions", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "typing-extensions", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ca/40/0db773452c2a62b37761d3f418acf933d381f9e87077036fb57c2a386c37/torch-2.14.0-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:9d4b1022a5d9b71282ec67ad0d9e7235870096b8a246dc1c32d6ea1fc83dc998", size = 127311393, upload-time = "2026-09-02T13:43:59.607Z" },
@@ -2984,7 +2986,7 @@ resolution-markers = [
     "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 dependencies = [
-    { name = "cuda-bindings", version = "12.9.9", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (python_full_version >= '3.15' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "cuda-bindings", version = "12.9.9", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "cuda-toolkit", version = "12.6.3", source = { registry = "https://pypi.org/simple" }, extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvrtc", "nvtx"], marker = "(sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "filelock", marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "fsspec", marker = "extra == 'extra-6-adapts-cu126'" },
@@ -2997,7 +2999,7 @@ dependencies = [
     { name = "nvidia-nvshmem-cu12", marker = "(sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "setuptools", marker = "extra == 'extra-6-adapts-cu126'" },
     { name = "sympy", marker = "extra == 'extra-6-adapts-cu126'" },
-    { name = "triton", marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (python_full_version >= '3.15' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (sys_platform != 'linux' and extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "triton", marker = "(python_full_version < '3.15' and sys_platform == 'linux' and extra == 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
     { name = "typing-extensions", marker = "extra == 'extra-6-adapts-cu126'" },
 ]
 wheels = [
@@ -3084,9 +3086,9 @@ resolution-markers = [
     "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 dependencies = [
-    { name = "numpy", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "pillow", marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
-    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126') or (extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126')" },
+    { name = "numpy", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "pillow", marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "torch", version = "2.14.0", source = { registry = "https://pypi.org/simple" }, marker = "(extra != 'extra-6-adapts-cpu' and extra != 'extra-6-adapts-cu126') or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/81/56/4e122b6b59269cb2e6a8f7ef969cff7b1eca1499c48784805ad156d3720b/torchvision-0.29.0-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:28a3964a9e6db34354d4ca440d2c2038deeef24e7219e8d6f49d9d174f44830c", size = 1813739, upload-time = "2026-09-02T13:47:08.63Z" },
@@ -3178,7 +3180,7 @@ name = "tqdm"
 version = "4.70.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/0d/ea/b2a5bd54b28a324dae8211928b2d730b6547500342c7e6c6dea08bd0a485/tqdm-4.70.1.tar.gz", hash = "sha256:cefd0eca11b2a37a3aee776544d4f4ae913f02688135b5556b8788dfa474afc4", size = 171846, upload-time = "2026-09-11T07:25:16.601Z" }
 wheels = [
@@ -3224,7 +3226,7 @@ version = "0.27.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-6-adapts-cpu' and extra == 'extra-6-adapts-cu126')" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "rich" },
     { name = "shellingham" },
 ]
