@@ -6,7 +6,6 @@ import torch
 import torch.nn.functional as F
 from hiera.hiera_utils import Reroll, Unroll
 from torch import Tensor, nn
-from torchvision import models
 
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
@@ -20,16 +19,6 @@ HIERA_MODELS = (
     "hiera_large_224",
     "hiera_huge_224",
 )
-
-
-def wide_resnet50_2():
-    net = models.wide_resnet50_2(
-        weights=models.Wide_ResNet50_2_Weights.IMAGENET1K_V1
-    )  # following AdapTS paper
-    stem = nn.Sequential(net.conv1, net.bn1, net.relu, net.maxpool)
-    stages = [getattr(net, f"layer{i}") for i in range(1, 5)]
-    channels = [stage[-1].conv3.out_channels for stage in stages]
-    return stem, stages, channels, [nn.Identity() for _ in stages]
 
 
 def resize_pos_embed(pos: Tensor, size: Sequence[int], unit: Sequence[int]) -> Tensor:
@@ -134,7 +123,6 @@ def hiera_model(name: str):
 
 
 BACKBONES = {
-    "wide_resnet50_2": wide_resnet50_2,
     **{name: partial(hiera_model, name) for name in HIERA_MODELS},
 }
 
@@ -149,7 +137,9 @@ class Backbone(nn.Module):
             raise ValueError(f"unknown backbone {name!r}, options: {list(BACKBONES)}")
         stem, stages, channels, readouts = BACKBONES[name]()
         if not 1 <= max_block <= len(stages):
-            raise ValueError(f"{name} has {len(stages)} blocks, got max_block={max_block}")
+            raise ValueError(
+                f"{name} has {len(stages)} blocks, got max_block={max_block}"
+            )
         self.max_block = max_block
         self.channels = dict(enumerate(channels[:max_block], start=1))
 

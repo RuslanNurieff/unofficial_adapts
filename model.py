@@ -4,7 +4,6 @@ import torch.nn.functional as F
 
 from modules.adapters import AdapterSet
 from modules.backbone import Backbone
-from modules.segmentation import SegmentationModule
 
 
 class AdapTS(nn.Module):
@@ -12,7 +11,7 @@ class AdapTS(nn.Module):
         self,
         adapter_layers: list[int],
         adapter_ratio: float = 1,
-        backbone: str = "wide_resnet50_2",
+        backbone: str = "hiera_tiny_224",
     ):
         super().__init__()
         self.config = {
@@ -32,10 +31,9 @@ class AdapTS(nn.Module):
             self.adapted_layers,
             adapter_ratio,
         )
-        self.seg = SegmentationModule(self.adapted_layers)
 
     def trainable_parameters(self):
-        return [*self.adapters.parameters(), *self.seg.parameters()]
+        return [*self.adapters.parameters()]
 
     def save(self, path):
         # the frozen backbone comes from pretrained weights, no need to store it
@@ -43,7 +41,6 @@ class AdapTS(nn.Module):
             {
                 "config": self.config,
                 "adapters": self.adapters.state_dict(),
-                "seg": self.seg.state_dict(),
             },
             path,
         )
@@ -53,7 +50,6 @@ class AdapTS(nn.Module):
         ckpt = torch.load(path, map_location=map_location)
         model = cls(**ckpt["config"])
         model.adapters.load_state_dict(ckpt["adapters"])
-        model.seg.load_state_dict(ckpt["seg"])
         return model
 
     def forward(self, x: torch.Tensor):
@@ -61,8 +57,7 @@ class AdapTS(nn.Module):
         if not self.training:
             return self.post_process(teacher, student)
 
-        seg_out = self.seg(teacher, student)
-        return (teacher, student), seg_out
+        return (teacher, student)
 
     def post_process(self, t_feat, s_feat, output_shape=(256, 256)) -> torch.Tensor:
         """
@@ -77,7 +72,7 @@ class AdapTS(nn.Module):
 
         """
 
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         score_maps = torch.tensor([1.0], device=device)
         for j in t_feat:
             t_feat[j] = F.normalize(t_feat[j], dim=1)
@@ -86,7 +81,6 @@ class AdapTS(nn.Module):
             sm = F.interpolate(
                 sm, size=output_shape, mode="bilinear", align_corners=False
             )
-            # aggregate score map by element-wise product
             score_maps = score_maps * sm
 
         anomaly_scores = torch.max(score_maps.view(score_maps.size(0), -1), dim=1)[0]
