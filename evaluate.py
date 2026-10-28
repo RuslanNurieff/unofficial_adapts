@@ -1,16 +1,11 @@
 import argparse
 
 import torch
-from moviad.datasets.dataset_arguments import DatasetArguments
-from moviad.datasets.mvtec.mvtec_dataset import MVTecDataset
-from moviad.utilities.configurations import Split
 from moviad.utilities.evaluation.evaluator import Evaluator
 from moviad.utilities.evaluation.metrics import F1, AvgPrec, MetricLvl, ProAuc, RocAuc
-from torch import nn
-from torch.utils.data import DataLoader
 
+from data.dataloader import build_test_loader
 from model import AdapTS
-from utils.anomaly import gaussian_blur
 
 METRICS = [
     RocAuc(MetricLvl.IMAGE),
@@ -20,31 +15,15 @@ METRICS = [
     F1(MetricLvl.PIXEL),
 ]
 
-
-# class AdapTSPredictor(nn.Module):
-#     """Adapts AdapTS to moviad's Evaluator: forward returns (anomaly_maps, anomaly_scores)."""
-
-#     def __init__(self, model: AdapTS, sigma: float = 4.0):
-#         super().__init__()
-#         self.model = model
-#         self.sigma = sigma
-
-#     def forward(self, x: torch.Tensor):
-#         amap, _ = self.model(x)
-#         amap = gaussian_blur(amap.float(), self.sigma)
-#         return amap, amap.flatten(1).amax(dim=1)
-
-
-def build_test_loader(data_root, category, img_size, batch_size=8, num_workers=4):
-    args = DatasetArguments(
-        dataset_path=data_root, img_size=img_size, gt_mask_size=img_size
-    )
-    dataset = MVTecDataset(args, category, Split.TEST)
-    return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers)
+"""
+Might apply Gaussian Blur to anomaly map later
+from utils.anomaly import gaussian_blur
+amap = gaussian_blur(amap.float(), self.sigma) then return the a_score by map.flatten(1).amax(dim=1)
+"""
 
 
 @torch.no_grad()
-def evaluate(model: AdapTS, test_loader, device, sigma: float = 4.0) -> dict:
+def evaluate(model: AdapTS, test_loader, device) -> dict:
     was_training = model.training
     report = Evaluator.evaluate(model, test_loader, METRICS, device)
     model.train(was_training)

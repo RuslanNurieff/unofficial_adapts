@@ -3,10 +3,9 @@ import os
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
 
-from data.dataloader import TrainGenerator
-from evaluate import build_test_loader, evaluate
+from data.dataloader import build_test_loader, build_train_loader
+from evaluate import evaluate
 from modules.backbone import BACKBONES
 from train import train
 
@@ -16,11 +15,6 @@ DATA_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data_sampl
 def parse_args():
     parser = argparse.ArgumentParser(description="Train AdapTS on one MVTec category")
     parser.add_argument("--data-root", default=DATA_ROOT)
-    parser.add_argument(
-        "--anomaly-source",
-        default=None,
-        help="DTD-style folder, defaults to <data-root>/anomaly_sources/images",
-    )
     parser.add_argument("--category", default="bottle")
     parser.add_argument(
         "--img-size",
@@ -50,22 +44,10 @@ def main():
     np.random.seed(args.seed)
 
     img_size = (args.img_size, args.img_size)
-    anomaly_source = args.anomaly_source or os.path.join(
-        args.data_root, "anomaly_sources/images"
-    )
-    train_set = TrainGenerator(
+    train_loader = build_train_loader(
         os.path.join(args.data_root, args.category, "train/good"),
-        anomaly_source,
+        args.category,
         img_size,
-    )
-    train_loader = DataLoader(
-        train_set,
-        batch_size=args.bs,
-        shuffle=True,
-        drop_last=True,
-        num_workers=args.workers,
-        persistent_workers=args.workers > 0,
-        pin_memory=torch.cuda.is_available(),
     )
 
     eval_fn = None
